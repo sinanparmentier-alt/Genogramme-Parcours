@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Génogramme - Découvre Ton Histoire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .tab-btn.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .card p, .card li {
+            line-height: 1.8;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .card ul {
+            margin-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .exercise-box strong {
+            color: #333;
+        }
+
+        .exercise-box p {
+            color: #333;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 35px;
+            top: 0;
+            bottom: -30px;
+            width: 2px;
+            background: #667eea;
+        }
+
+        .timeline-item:last-child:before {
+            display: none;
+        }
+
+        .timeline-marker {
+            width: 70px;
+            height: 70px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            margin-left: 30px;
+            background: #f5f7fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .timeline-content h4 {
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: #555;
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .dimension-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .dimension-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .dimension-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .dimension-card p {
+            color: white;
+        }
+
+        .reflection-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .reflection-box h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .reflection-box p {
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            color: #333;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 30px 20px;
+        }
+
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .btn-export {
+            margin-left: 10px;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-content h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+
+        .modal-content p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+
+            .dimension-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- MODAL INITIAL POUR NOM/PRÉNOM -->
+        <div id="modalNom" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Bienvenue ! 👋</h2>
+                <p>Avant de commencer, j'aimerais connaître ton nom et ton prénom</p>
+                <div class="form-group">
+                    <label for="prenom">Ton Prénom :</label>
+                    <input type="text" id="prenom" placeholder="Ex: Marie" required>
+                </div>
+                <div class="form-group">
+                    <label for="nom">Ton Nom de Famille :</label>
+                    <input type="text" id="nom" placeholder="Ex: Dupont" required>
+                </div>
+                <button class="btn" onclick="demarrerPortfolio()">Commencer Mon Portfolio 🚀</button>
+            </div>
+        </div>
+
+        <header>
+            <h1>🌳 Découvre Ton Histoire</h1>
+            <p id="headerNom" style="display:none; margin-top: 10px; font-size: 1.1em;">Bienvenue <span id="nomUtilisateur"></span> 💙</p>
+            <p>Un portfolio génogramme pour explorer ta vie, ta famille et tes possibilités</p>
+            <button class="btn btn-export" onclick="exportPDF()">📥 Télécharger Mon Portfolio PDF</button>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('intro')">🏠 Accueil</button>
+            <button class="tab-btn" onclick="switchTab('genogramme')">📖 C'est Quoi ?</button>
+            <button class="tab-btn" onclick="switchTab('dimensions')">🔍 Les 3 Dimensions</button>
+            <button class="tab-btn" onclick="switchTab('exercices')">✍️ Exercices</button>
+            <button class="tab-btn" onclick="switchTab('mon-histoire')">🎯 Mon Histoire</button>
+            <button class="tab-btn" onclick="switchTab('ressources')">💪 Ressources</button>
+        </div>
+
+        <!-- INTRODUCTION -->
+        <div id="intro" class="content-section active">
+            <div class="card">
+                <h2>Bienvenue dans ton Portfolio Génogramme ! 👋</h2>
+                <p>Tu te demandes souvent d'où tu viens ? Qui t'a influencé ? Où tu veux aller ? Ce portfolio est fait pour toi !</p>
+                
+                <h3>Pourquoi ce portfolio ?</h3>
+                <p>Le <span class="highlight">génogramme</span> est un outil puissant qui te permet de :</p>
+                <ul>
+                    <li><strong>🎬 Revisiter ton histoire</strong> - Comprendre les événements qui t'ont façonné</li>
+                    <li><strong>👨‍👩‍👧 Explorer tes racines familiales</strong> - Voir comment ta famille t'influence</li>
+                    <li><strong>🌍 Réfléchir à ton contexte social</strong> - Comprendre le monde autour de toi</li>
+                    <li><strong>🚀 Construire ton avenir</strong> - Utiliser ton passé pour mieux choisir demain</li>
+                    <li><strong>💡 Donner du sens</strong> - Transformer tes expériences en apprentissages</li>
+                </ul>
+
+                <h3>Comment ça marche ?</h3>
+                <p>Ce portfolio te propose :</p>
+                <div class="dimension-grid">
+                    <div class="dimension-card">
+                        <h3>📚 Apprentissage</h3>
+                        <p>Comprendre les concepts clés du génogramme</p>
+                    </div>
+                    <div class="dimension-card">
+                        <h3>✍️ Exercices Pratiques</h3>
+                        <p>Faire des activités pour explorer ta vie</p>
+                    </div>
+                    <div class="dimension-card">
+                        <h3>🤔 Réflexions</h3>
+                        <p>Te questionner et trouver tes réponses</p>
+                    </div>
+                </div>
+
+                <h3>Une approche en trois étapes 🎯</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <h4>Découvrir</h4>
+                            <p>Apprendre comment le génogramme peut t'aider à mieux te connaître</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <h4>Explorer</h4>
+                            <p>Faire des exercices pour raconter ton histoire et celle de ta famille</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <h4>Construire</h4>
+                            <p>Utiliser ces découvertes pour imaginer ton avenir</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- C'EST QUOI ? -->
+        <div id="genogramme" class="content-section">
+            <div class="card">
+                <h2>Le Génogramme : c'est quoi ? 📖</h2>
+                
+                <h3>Définition Simple</h3>
+                <p>Un <strong>génogramme</strong>, c'est un outil qui te permet de raconter et d'explorer ta vie. Ce n'est pas juste dire "c'est arrivé", mais vraiment <strong>comprendre pourquoi et comment</strong> cela a influencé ce que tu es aujourd'hui.</p>
+
+                <div class="exercise-box">
+                    <strong>💡 Différence importante :</strong>
+                    <p><strong>Vie</strong> = Les événements qui se passent (naissances, déménagements, rencontres...)</p>
+                    <p><strong>Histoire de Vie</strong> = Le sens que tu donnes à ces événements (ce qu'ils t'ont appris, comment ils t'ont changé)</p>
+                </div>
+
+                <h3>Pourquoi c'est utile pour TOI ? 🤔</h3>
+                <ul>
+                    <li><strong>Mieux te connaître</strong> - Comprendre qui tu es vraiment</li>
+                    <li><strong>Identifier tes ressources</strong> - Découvrir ta force et tes capacités</li>
+                    <li><strong>Changer ton point de vue</strong> - Voir ton histoire autrement</li>
+                    <li><strong>Prendre tes propres décisions</strong> - Agir plutôt que subir</li>
+                    <li><strong>Construire ton avenir</strong> - Savoir où tu veux aller</li>
+                </ul>
+
+                <h3>Les 4 Objectifs Clés 🎯</h3>
+                <div class="exercise-box">
+                    <p><strong>1️⃣ Faire Mémoire</strong> - Se souvenir, garder trace de ce qui compte</p>
+                    <p><strong>2️⃣ Créer du Lien</strong> - Mieux comprendre tes relations avec les autres</p>
+                    <p><strong>3️⃣ Donner du Sens</strong> - Trouver la signification de ta vie</p>
+                    <p><strong>4️⃣ Ouvrir l'Avenir</strong> - Imaginer de possibilités pour ton futur</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIMENSIONS -->
+        <div id="dimensions" class="content-section">
+            <div class="card">
+                <h2>Les 3 Dimensions de ta Vie 🔍</h2>
+                <p>Ton histoire n'existe pas toute seule. Elle est liée à trois dimensions importantes :</p>
+
+                <div class="dimension-grid">
+                    <div class="dimension-card">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🧍</div>
+                        <h3>Dimension Individuelle</h3>
+                        <p><strong>C'est TOI</strong> - Tes sentiments, tes pensées, tes envies, tes talents, tes peurs.</p>
+                        <p style="font-size: 0.9em; margin-top: 15px;">Exemple: Ton courage, ta créativité, ce qui te rend unique</p>
+                    </div>
+
+                    <div class="dimension-card">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">👨‍👩‍👧</div>
+                        <h3>Dimension Familiale</h3>
+                        <p><strong>Ta Famille</strong> - Tes parents, frères/sœurs, grands-parents et leurs histoires.</p>
+                        <p style="font-size: 0.9em; margin-top: 15px;">Exemple: Les valeurs qu'on t'a transmises, les défis que ta famille a affrontés</p>
+                    </div>
+
+                    <div class="dimension-card">
+                        <div style="font-size: 2.5em; margin-bottom: 10px;">🌍</div>
+                        <h3>Dimension Sociale</h3>
+                        <p><strong>Le Monde</strong> - La société, la culture, les événements historiques, l'époque.</p>
+                        <p style="font-size: 0.9em; margin-top: 15px;">Exemple: La crise, la technologie, les changements politiques</p>
+                    </div>
+                </div>
+
+                <h3>Comment Elles Interagissent ? 🔄</h3>
+                <p>Ces trois dimensions ne sont pas séparées. Elles s'influencent constamment :</p>
+                <div class="exercise-box">
+                    <p><strong>Exemple concret :</strong></p>
+                    <p>🧍 Tu décides d'étudier l'informatique (Dimension Individuelle)</p>
+                    <p>👨‍👩‍👧 Parce que ton père est informaticien et te l'a conseillé (Dimension Familiale)</p>
+                    <p>🌍 Et parce qu'il y a beaucoup d'emplois en informatique en ce moment (Dimension Sociale)</p>
+                </div>
+
+                <h3>Comprendre Ces 3 Dimensions T'aide à :</h3>
+                <ul>
+                    <li>Voir que tu n'es pas seul(e) - tu fais partie d'une famille et d'une société</li>
+                    <li>Reconnaître ce que tu peux changer et ce que tu dois accepter</li>
+                    <li>Prendre de meilleures décisions pour ton avenir</li>
+                    <li>Avoir plus de compassion pour toi et pour les autres</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- EXERCICES -->
+        <div id="exercices" class="content-section">
+            <div class="card">
+                <h2>Exercices Pour Explorer Ta Vie ✍️</h2>
+                <p>Voici différents types d'exercices que tu peux faire pour explorer ton histoire :</p>
+
+                <h3>🧍 Mon Identité</h3>
+                <div class="exercise-box">
+                    <p><strong>Je me présente par un objet</strong><br>Pense à un objet qui te représente bien. C'est pourquoi ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Mon animal et moi</strong><br>Quel animal te ressemble ? Comment ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Les personnes qui m'ont marqué</strong><br>Qui t'a influencé ? Comment ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+
+                <h3>📖 Mon Histoire</h3>
+                <div class="exercise-box">
+                    <p><strong>Un bon souvenir</strong><br>Raconte un moment dont tu es heureux(se)</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Souvenir d'enfance</strong><br>Qu'est-ce que tu aimais faire quand tu étais petit(e) ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>La première fois...</strong><br>Raconte une "première fois" importante</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+
+                <h3>🌍 Ma Vie Quotidienne</h3>
+                <div class="exercise-box">
+                    <p><strong>Une activité qui me plaît</strong><br>Qu'est-ce qui te fait vraiment du bien ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Mes loisirs</strong><br>Comment tu aimes passer ton temps libre ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Un rêve que j'ai</strong><br>Qu'est-ce que tu aimerais devenir ou faire ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+
+                <h3>👥 Ma Relation aux Autres</h3>
+                <div class="exercise-box">
+                    <p><strong>Une personne qui m'est chère</strong><br>Pourquoi cette personne est-elle importante pour toi ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Mes grands-parents</strong><br>Qu'as-tu appris de ta grand-mère ou grand-père ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Souvenir d'une rencontre</strong><br>Une rencontre qui t'a marqué</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+
+                <h3>💼 Ma Vie Professionnelle</h3>
+                <div class="exercise-box">
+                    <p><strong>Mes aspirations</strong><br>Qu'est-ce que tu aimerais faire plus tard ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Mes talents</strong><br>En quoi tu es doué(e) ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Un job d'étudiant</strong><br>Raconte une expérience de travail</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+
+                <h3>💪 Mes Ressources Intérieures</h3>
+                <div class="exercise-box">
+                    <p><strong>Une réalisation dont je suis fière</strong><br>Quelque chose que tu as réussi</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Le jour où j'ai osé dire "Non !"</strong><br>Une fois où tu as été courageux(se)</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Ce qui me fait vivre</strong><br>Ce qui t'apporte de la joie</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+
+                <h3>🎯 Donner du Sens & Ouvrir l'Avenir</h3>
+                <div class="exercise-box">
+                    <p><strong>Les blocages</strong><br>Qu'est-ce qui t'empêche d'avancer ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Changer quelque chose dans ma vie</strong><br>J'arrête... Je continue... Je commence...</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Mon message de vie</strong><br>Quel message tu aimerais partager avec le monde ?</p>
+                    <textarea placeholder="Écris ici..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- MON HISTOIRE -->
+        <div id="mon-histoire" class="content-section">
+            <div class="card">
+                <h2>Raconte Ton Histoire 🎯</h2>
+                <p>Maintenant c'est à TOI d'agir. Choisis un exercice et répond aux questions ci-dessous.</p>
+
+                <div class="reflection-box">
+                    <h3>Mes 3 Personnes Qui M'ont Marqué</h3>
+                    <p>Écris le nom de trois personnes importantes pour toi et comment elles t'ont influencé :</p>
+                    <textarea placeholder="Écris ici... Par exemple: Ma mère m'a appris à être courageuse..."></textarea>
+                </div>
+
+                <div class="reflection-box">
+                    <h3>Un Moment Important de Ma Vie</h3>
+                    <p>Raconte un événement qui t'a changé(e) :</p>
+                    <textarea placeholder="Raconte ce qui s'est passé, comment tu te sentais, et ce que tu as appris..."></textarea>
+                </div>
+
+                <div class="reflection-box">
+                    <h3>Mes Talents et Ressources</h3>
+                    <p>En quoi tu es doué(e) ? Qu'est-ce que tu fais bien ?</p>
+                    <textarea placeholder="Énumère tes talents, tes forces, ce qui te rend spécial(e)..."></textarea>
+                </div>
+
+                <div class="reflection-box">
+                    <h3>Mon Avenir : 3 Rêves</h3>
+                    <p>Qu'est-ce que tu aimerais devenir ou accomplir ?</p>
+                    <textarea placeholder="Décris tes 3 rêves pour ton avenir..."></textarea>
+                </div>
+
+                <button class="btn" onclick="saveReflections()">💾 Sauvegarder Mes Réflexions</button>
+            </div>
+        </div>
+
+        <!-- RESSOURCES -->
+        <div id="ressources" class="content-section">
+            <div class="card">
+                <h2>Ressources & Conseils 💪</h2>
+
+                <h3>5 Questions Pour Mieux Te Connaître 🤔</h3>
+                <ul>
+                    <li>
+                        <strong>Qui m'a influencé dans mon parcours de vie ?</strong><br>
+                        <textarea id="q1" placeholder="Écris ici les personnes qui t'ont influencé..."></textarea>
+                    </li>
+                    <li>
+                        <strong>Qu'est-ce que je veux prouver ? À qui ?</strong><br>
+                        <textarea id="q2" placeholder="Écris ici ce que tu veux prouver, et à qui..."></textarea>
+                    </li>
+                    <li>
+                        <strong>Qu'est-ce qui me fait peur ?</strong><br>
+                        <textarea id="q3" placeholder="Écris ici ce qui te fait peur..."></textarea>
+                    </li>
+                    <li>
+                        <strong>Quels sont mes freins réels ? Quels sont mes freins imaginaires ?</strong><br>
+                        <textarea id="q4" placeholder="Écris ici tes freins réels et imaginaires..."></textarea>
+                    </li>
+                    <li>
+                        <strong>Qu'est-ce que je veux vraiment au fond de moi ?</strong><br>
+                        <textarea id="q5" placeholder="Écris ici ce que tu veux vraiment..."></textarea>
+                    </li>
+                </ul>
+
+                <h3>Les 5 Bonnes Pratiques 📋</h3>
+                <div class="exercise-box">
+                    <p><strong>1. Sois Authentique</strong><br>Exprime-toi honnêtement, sans filtre. C'est TON histoire.</p>
+                    <p><strong>2. Sois Respectueux(se)</strong><br>Même si tu parles d'expériences difficiles, parle avec respect.</p>
+                    <p><strong>3. Crée du Lien</strong><br>Partage avec d'autres, écoute leurs histoires, apprenez ensemble.</p>
+                    <p><strong>4. Sois Bienveillant(e) Envers Toi</strong><br>Ne te juge pas trop sévèrement.</p>
+                    <p><strong>5. Ouvre-toi à la Réflexion</strong><br>Reste curieux(se), pose-toi des questions, grandis.</p>
+                </div>
+
+                <h3>Petit Secret Important 🤫</h3>
+                <div class="exercise-box">
+                    <p><strong>"Ta réalité n'est pas la réalité"</strong></p>
+                    <p>Ce que tu racontes, c'est TON interprétation, TA version. Ce n'est pas nécessairement "la vérité absolue" - c'est comment TU vois les choses. Et c'est OK ! C'est même super important, parce que c'est ça qui te façonne.</p>
+                </div>
+
+                <h3>Pourquoi Faire Un Génogramme ? 🌟</h3>
+                <div class="dimension-grid">
+                    <div class="dimension-card">
+                        <h3>🎓 Apprendre</h3>
+                        <p>Tu découvres qui tu es vraiment</p>
+                    </div>
+                    <div class="dimension-card">
+                        <h3>🔗 Créer du Lien</h3>
+                        <p>Tu comprends mieux ta famille</p>
+                    </div>
+                    <div class="dimension-card">
+                        <h3>🚀 Progresser</h3>
+                        <p>Tu construis ton avenir consciemment</p>
+                    </div>
+                </div>
+
+                <h3>Citation d'Inspiration 💭</h3>
+                <div class="exercise-box">
+                    <p><strong>"L'adulte en se réappropriant son histoire, se réapproprie son pouvoir de formation."</strong></p>
+                    <p style="font-style: italic; margin-top: 10px;">— Guy de Villers</p>
+                    <p style="margin-top: 15px;">Cela veut dire : Quand tu comprends d'où tu viens et ce que tu as vécu, tu reprends le contrôle sur ta vie et sur ce que tu veux devenir.</p>
+                </div>
+
+                <div class="reflection-box">
+                    <h3>Une citation qui t'inspire</h3>
+                    <p>Écris ici une phrase, une punchline, un proverbe ou une parole de chanson qui te parle vraiment :</p>
+                    <textarea id="citationPerso" placeholder="Écris ta citation préférée et pourquoi elle te parle..."></textarea>
+                </div>
+
+                <button class="btn" onclick="saveResources()">💾 Sauvegarder Mes Réponses Ressources</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📚 Portfolio Génogramme - Pour les 15-25 ans</p>
+            <p>Basé sur les travaux d'Isabelle Evrard et la Formation Formaform</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Prends soin de toi. Ton histoire compte. Tes rêves aussi. 💙</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function switchTab(tabName) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function saveReflections() {
+            const textareas = document.querySelectorAll('#mon-histoire textarea');
+            const reflections = {
+                personnes: textareas[0].value,
+                moment: textareas[1].value,
+                talents: textareas[2].value,
+                reves: textareas[3].value,
+                dateSauvegarde: new Date().toLocaleString('fr-FR')
+            };
+            localStorage.setItem('mesReflexions', JSON.stringify(reflections));
+            alert('✅ Tes réflexions ont été sauvegardées !\n\nDate: ' + reflections.dateSauvegarde);
+        }
+
+        function saveResources() {
+            const r = {
+                q1: document.getElementById('q1').value,
+                q2: document.getElementById('q2').value,
+                q3: document.getElementById('q3').value,
+                q4: document.getElementById('q4').value,
+                q5: document.getElementById('q5').value,
+                citation: document.getElementById('citationPerso').value,
+                dateSauvegarde: new Date().toLocaleString('fr-FR')
+            };
+            localStorage.setItem('mesRessources', JSON.stringify(r));
+            alert('✅ Tes réponses Ressources ont été sauvegardées !\n\nDate: ' + r.dateSauvegarde);
+        }
+
+        function demarrerPortfolio() {
+            const prenom = document.getElementById('prenom').value.trim();
+            const nom = document.getElementById('nom').value.trim();
+            
+            if (!prenom || !nom) {
+                alert('⚠️ Veuillez entrer votre prénom et nom');
+                return;
+            }
+            
+            localStorage.setItem('userPrenom', prenom);
+            localStorage.setItem('userNom', nom);
+            
+            document.getElementById('modalNom').classList.add('hidden');
+            document.getElementById('nomUtilisateur').textContent = prenom + ' ' + nom;
+            document.getElementById('headerNom').style.display = 'block';
+        }
+
+        function exportPDF() {
+            const prenom = localStorage.getItem('userPrenom') || 'Utilisateur';
+            const nom = localStorage.getItem('userNom') || '';
+            const nomComplet = (prenom + ' ' + nom).trim();
+            
+            const reflections = JSON.parse(localStorage.getItem('mesReflexions') || '{}');
+            const resources = JSON.parse(localStorage.getItem('mesRessources') || '{}');
+            
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.style.backgroundColor = 'white';
+            element.style.fontFamily = 'Arial, sans-serif';
+            element.innerHTML = `
+                <div style="text-align: center; margin-bottom: 40px; border-bottom: 3px solid #667eea; padding-bottom: 20px;">
+                    <h1 style="color: #667eea; font-size: 2em; margin: 0;">🌳 Découvre Ton Histoire</h1>
+                    <h2 style="color: #764ba2; font-size: 1.5em; margin: 10px 0;">Portfolio Génogramme</h2>
+                    <p style="color: #555; font-size: 1.2em; margin: 15px 0;"><strong>${nomComplet}</strong></p>
+                    <p style="color: #999; font-size: 0.95em;">Généré le ${new Date().toLocaleDateString('fr-FR')}</p>
+                </div>
+
+                <!-- SECTION COMPRENDRE -->
+                <div style="margin-bottom: 40px; background: #f9f9f9; padding: 25px; border-radius: 10px; page-break-after: avoid;">
+                    <h2 style="color: #667eea; font-size: 1.5em; border-bottom: 3px solid #667eea; padding-bottom: 10px;">Le Génogramme : c'est quoi ? 📖</h2>
+                    
+                    <h3 style="color: #764ba2; margin-top: 15px;">Définition Simple</h3>
+                    <p style="color: #333; line-height: 1.8;">Un <strong>génogramme</strong>, c'est un outil qui te permet de raconter et d'explorer ta vie. Ce n'est pas juste dire "c'est arrivé", mais vraiment <strong>comprendre pourquoi et comment</strong> cela a influencé ce que tu es aujourd'hui.</p>
+
+                    <div style="background: #e8f4f8; border-left: 5px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                        <p style="color: #333; margin: 0;"><strong>💡 Différence importante :</strong></p>
+                        <p style="color: #333; margin: 5px 0;"><strong>Vie</strong> = Les événements qui se passent (naissances, déménagements, rencontres...)</p>
+                        <p style="color: #333; margin: 0;"><strong>Histoire de Vie</strong> = Le sens que tu donnes à ces événements</p>
+                    </div>
+
+                    <h3 style="color: #764ba2;">Pourquoi c'est utile pour TOI ? 🤔</h3>
+                    <ul style="color: #333; line-height: 1.8;">
+                        <li><strong>Mieux te connaître</strong> - Comprendre qui tu es vraiment</li>
+                        <li><strong>Identifier tes ressources</strong> - Découvrir ta force et tes capacités</li>
+                        <li><strong>Changer ton point de vue</strong> - Voir ton histoire autrement</li>
+                        <li><strong>Prendre tes propres décisions</strong> - Agir plutôt que subir</li>
+                        <li><strong>Construire ton avenir</strong> - Savoir où tu veux aller</li>
+                    </ul>
+
+                    <h3 style="color: #764ba2;">Les 4 Objectifs Clés 🎯</h3>
+                    <ul style="color: #333; line-height: 1.8;">
+                        <li><strong>1️⃣ Faire Mémoire</strong> - Se souvenir, garder trace de ce qui compte</li>
+                        <li><strong>2️⃣ Créer du Lien</strong> - Mieux comprendre tes relations avec les autres</li>
+                        <li><strong>3️⃣ Donner du Sens</strong> - Trouver la signification de ta vie</li>
+                        <li><strong>4️⃣ Ouvrir l'Avenir</strong> - Imaginer des possibilités pour ton futur</li>
+                    </ul>
+                </div>
+
+                <!-- SECTION DIMENSIONS -->
+                <div style="margin-bottom: 40px; background: #f9f9f9; padding: 25px; border-radius: 10px; page-break-after: avoid;">
+                    <h2 style="color: #667eea; font-size: 1.5em; border-bottom: 3px solid #667eea; padding-bottom: 10px;">Les 3 Dimensions de ta Vie 🔍</h2>
+                    <p style="color: #333; line-height: 1.8;">Ton histoire n'existe pas toute seule. Elle est liée à trois dimensions importantes :</p>
+
+                    <h3 style="color: #764ba2;">🧍 Dimension Individuelle</h3>
+                    <p style="color: #333; line-height: 1.8;"><strong>C'est TOI</strong> - Tes sentiments, tes pensées, tes envies, tes talents, tes peurs.<br><em>Exemple: Ton courage, ta créativité, ce qui te rend unique</em></p>
+
+                    <h3 style="color: #764ba2;">👨‍👩‍👧 Dimension Familiale</h3>
+                    <p style="color: #333; line-height: 1.8;"><strong>Ta Famille</strong> - Tes parents, frères/sœurs, grands-parents et leurs histoires.<br><em>Exemple: Les valeurs qu'on t'a transmises, les défis que ta famille a affrontés</em></p>
+
+                    <h3 style="color: #764ba2;">🌍 Dimension Sociale</h3>
+                    <p style="color: #333; line-height: 1.8;"><strong>Le Monde</strong> - La société, la culture, les événements historiques, l'époque.<br><em>Exemple: La crise, la technologie, les changements politiques</em></p>
+
+                    <h3 style="color: #764ba2;">Comment Elles Interagissent ? 🔄</h3>
+                    <div style="background: #e8f4f8; border-left: 5px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                        <p style="color: #333; margin: 0;"><strong>Exemple concret :</strong></p>
+                        <p style="color: #333; margin: 5px 0;">🧍 Tu décides d'étudier l'informatique (Dimension Individuelle)</p>
+                        <p style="color: #333; margin: 5px 0;">👨‍👩‍👧 Parce que ton père est informaticien et te l'a conseillé (Dimension Familiale)</p>
+                        <p style="color: #333; margin: 0;">🌍 Et parce qu'il y a beaucoup d'emplois en informatique en ce moment (Dimension Sociale)</p>
+                    </div>
+                </div>
+
+                <!-- MES RÉPONSES -->
+                <div style="margin-bottom: 40px; page-break-after: avoid;">
+                    <h2 style="color: #667eea; font-size: 1.5em; border-bottom: 3px solid #667eea; padding-bottom: 10px; margin-top: 0;">📖 Mes Réflexions Personnelles</h2>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Mes 3 Personnes Qui M'ont Marqué</h3>
+                    <p style="color: #333; line-height: 1.8; white-space: pre-wrap;">${reflections.personnes || '(Non rempli)'}</p>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Un Moment Important de Ma Vie</h3>
+                    <p style="color: #333; line-height: 1.8; white-space: pre-wrap;">${reflections.moment || '(Non rempli)'}</p>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Mes Talents et Ressources</h3>
+                    <p style="color: #333; line-height: 1.8; white-space: pre-wrap;">${reflections.talents || '(Non rempli)'}</p>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Mon Avenir : 3 Rêves</h3>
+                    <p style="color: #333; line-height: 1.8; white-space: pre-wrap;">${reflections.reves || '(Non rempli)'}</p>
+                </div>
+
+                <div style="margin-bottom: 30px; background: #f5f7fa; padding: 20px; border-radius: 10px;">
+                    <h2 style="color: #667eea; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">💪 Réponses aux 5 Questions Ressources</h2>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <p style="color: #555; font-weight: bold;">Qui m'a influencé dans mon parcours de vie ?</p>
+                        <p style="color: #333; line-height: 1.8; white-space: pre-wrap; margin: 8px 0;">${resources.q1 || '(Non rempli)'}</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <p style="color: #555; font-weight: bold;">Qu'est-ce que je veux prouver ? À qui ?</p>
+                        <p style="color: #333; line-height: 1.8; white-space: pre-wrap; margin: 8px 0;">${resources.q2 || '(Non rempli)'}</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <p style="color: #555; font-weight: bold;">Qu'est-ce qui me fait peur ?</p>
+                        <p style="color: #333; line-height: 1.8; white-space: pre-wrap; margin: 8px 0;">${resources.q3 || '(Non rempli)'}</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <p style="color: #555; font-weight: bold;">Quels sont mes freins réels ? Quels sont mes freins imaginaires ?</p>
+                        <p style="color: #333; line-height: 1.8; white-space: pre-wrap; margin: 8px 0;">${resources.q4 || '(Non rempli)'}</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <p style="color: #555; font-weight: bold;">Qu'est-ce que je veux vraiment au fond de moi ?</p>
+                        <p style="color: #333; line-height: 1.8; white-space: pre-wrap; margin: 8px 0;">${resources.q5 || '(Non rempli)'}</p>
+                    </div>
+
+                    <div>
+                        <p style="color: #555; font-weight: bold;">Une citation qui m'inspire</p>
+                        <p style="color: #333; line-height: 1.8; white-space: pre-wrap; margin: 8px 0;">${resources.citation || '(Non rempli)'}</p>
+                    </div>
+                </div>
+
+                <!-- RESSOURCES FINALES -->
+                <div style="margin-bottom: 30px; background: #fff9e6; padding: 25px; border-radius: 10px; border-left: 5px solid #764ba2;">
+                    <h2 style="color: #764ba2; margin-top: 0;">💭 Citation d'Inspiration</h2>
+                    <p style="color: #333; font-weight: bold; line-height: 1.8;">"L'adulte en se réappropriant son histoire, se réapproprie son pouvoir de formation."</p>
+                    <p style="color: #666; font-style: italic; margin: 10px 0;">— Guy de Villers</p>
+                    <p style="color: #333; line-height: 1.8;">Cela veut dire : Quand tu comprends d'où tu viens et ce que tu as vécu, tu reprends le contrôle sur ta vie et sur ce que tu veux devenir.</p>
+                </div>
+
+                <div style="margin-bottom: 30px; background: #e8f8f5; padding: 25px; border-radius: 10px;">
+                    <h2 style="color: #667eea;">🎯 5 Bonnes Pratiques à Retenir</h2>
+                    <ul style="color: #333; line-height: 1.8;">
+                        <li><strong>1. Sois Authentique</strong> - Exprime-toi honnêtement, sans filtre. C'est TON histoire.</li>
+                        <li><strong>2. Sois Respectueux(se)</strong> - Même si tu parles d'expériences difficiles, parle avec respect.</li>
+                        <li><strong>3. Crée du Lien</strong> - Partage avec d'autres, écoute leurs histoires, apprenez ensemble.</li>
+                        <li><strong>4. Sois Bienveillant(e) Envers Toi</strong> - Ne te juge pas trop sévèrement.</li>
+                        <li><strong>5. Ouvre-toi à la Réflexion</strong> - Reste curieux(se), pose-toi des questions, grandis.</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; border-top: 2px solid #ddd; padding-top: 20px; color: #999; font-size: 0.9em;">
+                    <p>📚 Portfolio Génogramme - Pour les 15-25 ans</p>
+                    <p>Basé sur les travaux d'Isabelle Evrard et la Formation Formaform</p>
+                    <p style="margin: 10px 0;"><strong>Pour les accompagnateurs :</strong> Ce document est un point de repère pédagogique pour soutenir le jeune dans sa réflexion et son développement personnel.</p>
+                    <p>Prends soin de toi. Ton histoire compte. Tes rêves aussi. 💙</p>
+                </div>
+            `;
+            
+            const opt = {
+                margin: 10,
+                filename: `Portfolio-${nomComplet}-${new Date().getFullYear()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+            
+            setTimeout(() => {
+                nettoyerDonnees();
+            }, 1000);
+        }
+
+        function nettoyerDonnees() {
+            localStorage.removeItem('mesReflexions');
+            localStorage.removeItem('mesRessources');
+            localStorage.removeItem('userPrenom');
+            localStorage.removeItem('userNom');
+            alert('✅ Ton portfolio a été téléchargé avec succès !\n\n💾 Les données ont été supprimées de cet appareil.\n\nTon document PDF est ta référence ! 📄');
+            location.reload();
+        }
+
+        window.addEventListener('load', function() {
+            const prenom = localStorage.getItem('userPrenom');
+            const nom = localStorage.getItem('userNom');
+            
+            if (prenom && nom) {
+                document.getElementById('modalNom').classList.add('hidden');
+                document.getElementById('nomUtilisateur').textContent = prenom + ' ' + nom;
+                document.getElementById('headerNom').style.display = 'block';
+            }
+
+            const saved = localStorage.getItem('mesReflexions');
+            if (saved) {
+                const reflections = JSON.parse(saved);
+                const textareas = document.querySelectorAll('#mon-histoire textarea');
+                textareas[0].value = reflections.personnes || '';
+                textareas[1].value = reflections.moment || '';
+                textareas[2].value = reflections.talents || '';
+                textareas[3].value = reflections.reves || '';
+            }
+
+            const savedR = localStorage.getItem('mesRessources');
+            if (savedR) {
+                const r = JSON.parse(savedR);
+                document.getElementById('q1').value = r.q1 || '';
+                document.getElementById('q2').value = r.q2 || '';
+                document.getElementById('q3').value = r.q3 || '';
+                document.getElementById('q4').value = r.q4 || '';
+                document.getElementById('q5').value = r.q5 || '';
+                document.getElementById('citationPerso').value = r.citation || '';
+            }
+        });
+
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && !document.getElementById('modalNom').classList.contains('hidden')) {
+                const input = event.target;
+                if (input.id === 'prenom' || input.id === 'nom') {
+                    event.preventDefault();
+                    if (input.id === 'prenom') {
+                        document.getElementById('nom').focus();
+                    } else {
+                        demarrerPortfolio();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
